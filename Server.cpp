@@ -50,22 +50,51 @@ Server::~Server() {
     }
 }
 void Server::handleClient(SOCKET clientSocket) {
-    FileSystem fs("server_files/");
-    UserManager um;
-    RequestHandler rh(fs, um);
+    FileSystem    fs("server_files/");
+    UserManager   um;
+    RequestHandler rh(fs, um);      // ← must be right here
 
-    char buffer[1024];
+    std::string buffer;    // accumulates raw bytes
+    char        temp[512];
+
     while (true) {
-        int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
-        if (bytesReceived <= 0) break;
-        buffer[bytesReceived] = '\0';
-        std::string request(buffer);
+        int bytes = recv(clientSocket, temp, sizeof(temp), 0);
+        if (bytes <= 0) break;            // client hung up or error
+        buffer.append(temp, bytes);
 
-        std::string response = rh.processRequest(request);
-        send(clientSocket, response.c_str(), (int)response.size(), 0);
+        // Inner loop: slice off each complete line (first CR or LF)
+        size_t pos;
+        while ((pos = buffer.find_first_of("\r\n")) != std::string::npos) {
+            // 1) pull out the raw line
+            std::string line = buffer.substr(0, pos);
+
+            // 2) erase that line + any adjacent CR/LF
+            size_t next = buffer.find_first_not_of("\r\n", pos);
+            buffer.erase(0, (next == std::string::npos ? buffer.size() : next));
+
+            // 3) trim any stray \r or \n at end (just in case)
+            while (!line.empty() && (line.back() == '\r' || line.back() == '\n'))
+                line.pop_back();
+
+            // ─── New: ignore blank or all‐whitespace lines ───
+            if (line.find_first_not_of(" \t") == std::string::npos) {
+                continue;   // skip sending ERR_UNKNOWN_CMD on empty <Enter>
+            }
+
+            // 4) only now process a non‐blank command
+            std::string response = rh.processRequest(line);
+            send(clientSocket,
+                 response.c_str(),
+                 static_cast<int>(response.size()),
+                 0);
+        }
     }
+
     closesocket(clientSocket);
 }
+
+
+
 
 void Server::start() {
     std::cout << "Server listening for connections...\n";

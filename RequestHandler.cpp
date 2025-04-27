@@ -1,6 +1,9 @@
 // RequestHandler.cpp
 #include "RequestHandler.hpp"
 #include <sstream>    // for std::istringstream
+#include <algorithm>    // for std::transform
+#include <cctype>       // for std::toupper
+#include <filesystem>   // for std::filesystem::create_directories
 
 // Constructor: just store references to FileSystem and UserManager
 RequestHandler::RequestHandler(FileSystem& fs_, UserManager& um_)
@@ -12,12 +15,36 @@ std::string RequestHandler::processRequest(const std::string& request) {
     std::istringstream iss(request);
     std::string cmd;
     iss >> cmd;
+    if (cmd.empty()) return "";   // silently ignore blank
+
+    // uppercase the command for case‐insensitive matching
+    std::transform(cmd.begin(), cmd.end(), cmd.begin(),
+                   [](unsigned char c){ return std::toupper(c); });
 
     if (cmd == "CREATE_DIR") {
-        std::string dir; 
+        std::string dir;
         iss >> dir;
-        return fs.createDirectory(dir) ? "OK\n" : "ERR_CREATE\n";
+        // use create_directories, which won't error if it already exists
+        try {
+            std::filesystem::create_directories("server_files/" + dir);
+            return "OK\n";
+        }
+        catch (const std::filesystem::filesystem_error&) {
+            return "ERR_CREATE\n";
+        }
     }
+    else if (cmd == "DELETE_DIR") {
+        std::string dir;
+        iss >> dir;
+        try {
+            std::filesystem::remove_all("server_files/" + dir);
+            return "OK\n";
+        }
+        catch (const std::filesystem::filesystem_error&) {
+            return "ERR_DELETE\n";
+        }
+    }
+    
     else if (cmd == "WRITE_FILE") {
         std::string filename;
         iss >> filename;
