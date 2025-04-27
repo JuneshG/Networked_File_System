@@ -1,12 +1,9 @@
 // UserManager.hpp
-
 // Prevents duplicate inclusion (like a "one-time use" stamp)
 #pragma once
-
 // Include libraries for data structures and strings
 #include <unordered_map>  // For std::unordered_map (fast key-value storage)
 #include <string>         // For std::string (handling usernames/passwords)
-
 class UserManager {
 private:
     // Private member (hidden from outside the class)

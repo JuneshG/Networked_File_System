@@ -58,19 +58,19 @@ std::string FileSystem::listFiles(const std::string& dirName) { // List all file
 }
 
 
-int main() {
-    FileSystem fs("server_files/"); // Create a FileSystem object
+// int main() {
+//     FileSystem fs("server_files/"); // Create a FileSystem object // Sets up the "filing cabinet" location
 
-    // Test createDirectory()
-    fs.createDirectory("documents"); // Creates "server_files/documents"
+//     // Test createDirectory()
+//     fs.createDirectory("documents"); // Creates "server_files/documents"
 
-    // Test writeFile()
-    fs.writeFile("documents/notes.txt", "Hello World"); // Creates "notes.txt"
+//     // Test writeFile()
+//     fs.writeFile("documents/notes.txt", "Hello World"); // Creates "notes.txt"
 
-    // Test listFiles()
-    std::string files = fs.listFiles("documents");
-    std::cout << "Files in 'documents':\n" << files << std::endl;
+//     // Test listFiles()
+//     std::string files = fs.listFiles("documents");
+//     std::cout << "Files in 'documents':\n" << files << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }
 
