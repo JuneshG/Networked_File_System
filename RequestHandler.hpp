@@ -1,11 +1,11 @@
 // RequestHandler.hpp
-
 // Prevents duplicate inclusion (like a "one-time use" seal)
 #pragma once
 
 // Include headers for dependencies
 #include "FileSystem.hpp"    // Lets us use the FileSystem class (the "filing cabinet")
 #include "UserManager.hpp"   // Lets us use the UserManager class (the "security ledger")
+#include <string>           // For std::string (handling text)
 
 class RequestHandler {
 private:
@@ -22,5 +22,5 @@ public:
     // Method: Processes a client's request (like a waiter handling an order)
     std::string processRequest(const std::string& request); 
     //                         ^^^^^^^^^^^^^^^^^^
-    //                         The client's command (e.g., "CREATE_DIR documents")
+     //                         The client's command (e.g., "CREATE_DIR documents")
 };

@@ -18,7 +18,6 @@ private: // Private members of the class
     //private methods
     void handleClient(SOCKET clientSocket); // Method to handle communication with a connected client. The "waiter" who takes orders and serves food to the client. Function to manage ONE client (like a waiter serving one table)
 
-
 public: // Public members of the class
     //Constructor called when creating a Server Object. (e.g., Server myServer(8080);)
     Server(int port); // Sets up the "phone line" (socket) on the given port. The "phone number" the server listens on for incoming calls (connections). The port number is like an extension number for the server to receive calls on.

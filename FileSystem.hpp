@@ -1,8 +1,10 @@
+// FileSystem.hpp
 #pragma once // Prevent this header from being included multiple times (like a "do not duplicate" stamp)
 
 //include necessary libraries for string and file system operations
 #include <string> // Standard C++ library for string manipulation (like std::string(text handling)) 
-#include <filesystem> // Standard C++ library for file system operations (like std::filesystem::path). For file/directory operations (like a "file explorer toolbox")
+#include <filesystem>
+namespace fs = std::filesystem;
 
 class FileSystem { // Class definition for file system operations and its functionalities and data members and methods
 private: // Private members of the class
@@ -10,7 +12,7 @@ private: // Private members of the class
 
 public:
     // Constructor: Called when creating a FileSystem object (e.g., FileSystem fs("server_files/");)
-    FileSystem(const std::string& baseDir) // Constructor to initialize the base directory for file operations. The "filing cabinet" where all files are stored. Sets up the "filing cabinet" location
+    FileSystem(const std::string& baseDir); // Constructor to initialize the base directory for file operations. The "filing cabinet" where all files are stored. Sets up the "filing cabinet" location
 
     //Public method (tools users can interact with):
 

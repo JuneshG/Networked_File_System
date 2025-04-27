@@ -15,7 +15,6 @@ private:
     //           |           |           |
     //    Username (key)   Password (value)
     // Acts like a "security ledger" storing username-password pairs.
-
 public:
     // Constructor: Initializes the UserManager (like setting up an empty ledger)
     UserManager();
@@ -24,7 +23,6 @@ public:
     bool login(const std::string& username, const std::string& password);
     //        ^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^
     //        Username (reference) Password (reference) - Efficient, no copies!
-
     // Method: Registers a new user (like adding a new entry to the ledger)
     bool registerUser(const std::string& username, const std::string& password);
 };
