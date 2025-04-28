@@ -1,54 +1,58 @@
 // Server.cpp
 #include "Server.hpp"
 #include "RequestHandler.hpp"
-#include <iostream>     // std::cerr, std::cout
-#include <stdexcept>    // std::runtime_error
+#include <iostream>
+#include <stdexcept>
 
 Server::Server(int port) {
-    // 1) Initialize Winsock
+#if defined(_WIN32) || defined(_WIN64)
     WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {
+    if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0)
         throw std::runtime_error("WSAStartup failed");
-    }
+#endif
 
-    // 2) Create a listening socket
     serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (serverSocket == INVALID_SOCKET) {
+#if defined(_WIN32) || defined(_WIN64)
         WSACleanup();
+#endif
         throw std::runtime_error("socket() failed");
     }
 
-    // 3) Bind to all interfaces on the given port
     sockaddr_in addr{};
     addr.sin_family      = AF_INET;
-    addr.sin_addr.s_addr = INADDR_ANY;               // 0.0.0.0
+    addr.sin_addr.s_addr = INADDR_ANY;
     addr.sin_port        = htons(static_cast<u_short>(port));
     if (bind(serverSocket, (sockaddr*)&addr, sizeof(addr)) == SOCKET_ERROR) {
         closesocket(serverSocket);
+#if defined(_WIN32) || defined(_WIN64)
         WSACleanup();
+#endif
         throw std::runtime_error("bind() failed");
     }
 
-    // 4) Start listening
     if (listen(serverSocket, SOMAXCONN) == SOCKET_ERROR) {
         closesocket(serverSocket);
+#if defined(_WIN32) || defined(_WIN64)
         WSACleanup();
+#endif
         throw std::runtime_error("listen() failed");
     }
 }
 
 Server::~Server() {
-    // Stop accepting new clients
+    // stop accepting new clients
     closesocket(serverSocket);
 
-    // Clean up WinSock
+#if defined(_WIN32) || defined(_WIN64)
     WSACleanup();
+#endif
 
-    // Wait for all client threads to finish
-    for (auto &t : clientThreads) {
-        if (t.joinable()) t.join();
-    }
+    // join threads…
+    for (auto &t : clientThreads)
+      if (t.joinable()) t.join();
 }
+
 void Server::handleClient(SOCKET clientSocket) {
     FileSystem    fs("server_files/");
     UserManager   um;
