@@ -53,7 +53,7 @@ Server::~Server() {
       if (t.joinable()) t.join();
 }
 
-void Server::handleClient(SOCKET clientSocket) {
+void Server::handleClient(socket_t clientSocket) {
     FileSystem    fs("server_files/");
     UserManager   um;
     RequestHandler rh(fs, um);      // ← must be right here
@@ -104,7 +104,7 @@ void Server::start() {
     std::cout << "Server listening for connections...\n";
     while (true) {
         // Block until a client connects
-        SOCKET clientSock = accept(serverSocket, nullptr, nullptr);
+        socket_t clientSock = accept(serverSocket, nullptr, nullptr);
         if (clientSock == INVALID_SOCKET) {
             std::cerr << "accept() failed or server shutting down\n";
             break;
