@@ -38,8 +38,8 @@ int main() {
     serverAddr.sin_family = AF_INET;
 
     // ⚠️ Replace "18.119.253.55" with your AWS EC2 public IP address
-    // serverAddr.sin_addr.s_addr = inet_addr("18.119.253.55"); 
-    serverAddr.sin_addr.s_addr = inet_addr("localhost"); // For local testing, use localhost
+    serverAddr.sin_addr.s_addr = inet_addr("18.119.253.55");  // Public IP of the server
+    // serverAddr.sin_addr.s_addr = inet_addr("localhost"); // For local testing, use localhost
     serverAddr.sin_port = htons(8080); // Port 8080 as configured on server
 
     if (connect(clientSock, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
@@ -57,20 +57,16 @@ int main() {
     while (true) {
         std::cout << "> ";
         std::getline(std::cin, command);
-        
-        if (command.empty()) continue; // skip empty lines
-
-        if (command == "quit" || command == "exit") {
-            std::cout << "Closing connection...\n";
-            break;
-        }
-
-        // Send command to server
+    
+        if (command.empty()) continue;
+        if (command == "quit" || command == "exit") break;
+    
+        command += "\n";                 // <- add this line
+    
         if (send(clientSock, command.c_str(), command.size(), 0) < 0) {
             std::cerr << "Send failed.\n";
             break;
         }
-
         // receive response from server
         int bytesReceived = recv(clientSock, buffer, sizeof(buffer) - 1, 0);
         if (bytesReceived <= 0) {
