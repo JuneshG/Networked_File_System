@@ -1,4 +1,5 @@
 {
-    "C_Cpp.default.compilerPath": "c:\\MinGW\\bin\\g++.exe"
+    "C_Cpp.default.compilerPath": "c:\\MinGW\\bin\\g++.exe",
+    "C_Cpp.errorSquiggles": "disabled"
     
 }

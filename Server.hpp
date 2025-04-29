@@ -25,6 +25,8 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <iostream>
+#include <stdexcept>
 
 class Server {
 private:
