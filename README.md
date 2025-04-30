@@ -27,7 +27,8 @@ deployed on an **AWS EC2** instance for world-wide access.
 
 ## 🖼️  Architecture Diagram
 
-> ![image](https://github.com/user-attachments/assets/b859c85e-6e3a-4464-b734-bb9267b7a1b3)
+> ![image](https://github.com/user-attachments/assets/450a5236-ed11-4b42-b7e0-b056be85ae7f)
+
 
 ## Building 
 ### Linux (g++)
