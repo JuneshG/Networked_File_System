@@ -27,8 +27,7 @@ deployed on an **AWS EC2** instance for world-wide access.
 
 ## 🖼️  Architecture Diagram
 
-> Save the SVG below as `docs/flow.svg` (or keep in repo root) and reference it.
-
+> ![image](https://github.com/user-attachments/assets/b859c85e-6e3a-4464-b734-bb9267b7a1b3)
 
 ## Building 
 ### Linux (g++)
