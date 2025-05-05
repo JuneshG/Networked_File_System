@@ -1,7 +1,7 @@
 #pragma once
 
 #if defined(_WIN32) || defined(_WIN64)
-  // ——— Windows Sockets ———
+// ——— Windows Sockets ———
 #  ifndef _WIN32_WINNT
 #    define _WIN32_WINNT 0x0601
 #  endif
@@ -9,7 +9,7 @@
 #  include <windows.h>
    using socket_t = SOCKET;
 #else
-  // ——— POSIX / Linux Sockets ———
+// ——— POSIX / Linux Sockets ———
 #  include <sys/types.h>
 #  include <sys/socket.h>
 #  include <netinet/in.h>
