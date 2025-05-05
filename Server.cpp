@@ -11,7 +11,7 @@ Server::Server(int port) {
         throw std::runtime_error("WSAStartup failed");
 #endif
 
-    serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); // This line creates a socket for TCP communication
     if (serverSocket == INVALID_SOCKET) {
 #if defined(_WIN32) || defined(_WIN64)
         WSACleanup();

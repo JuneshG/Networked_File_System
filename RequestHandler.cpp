@@ -70,5 +70,12 @@ std::string RequestHandler::processRequest(const std::string& request) {
         return um.login(user, pass) ? "OK\n" : "ERR_LOGIN\n";
     }
 
+    else if (cmd == "DELETE_FILE") {
+        std::string filename;
+        iss >> filename;
+        return fs.deleteFile(filename) ? "OK\n" : "ERR_DELETE_FILE\n";
+    }
+
+    
     return "ERR_UNKNOWN_CMD\n";
 }

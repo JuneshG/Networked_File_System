@@ -57,6 +57,13 @@ std::string FileSystem::listFiles(const std::string& dirName) { // List all file
     return filesList; // Return the list (e.g., "file1.txt\nfile2.txt\n")
 }
 
+bool FileSystem::deleteFile(const std::string& filename) {
+    // Combine base directory + filename (e.g., "server_files/notes.txt")
+    std::string fullPath = baseDir + filename; // Full path to the file
+
+    // Check if the file exists and delete it (like removing a document from the drawer)
+    return fs::remove(fullPath); // Remove the file (like throwing away a document)
+}
 
 // int main() {
 //     FileSystem fs("server_files/"); // Create a FileSystem object // Sets up the "filing cabinet" location

@@ -17,7 +17,8 @@ public:
     //Public method (tools users can interact with):
 
     bool createDirectory(const std::string& dirName); // Creates a directory (folder) in the base directory. Like adding a new drawer to the "filing cabinet" for organizing files. The "drawer" where files are stored.
-    bool writeFile(const std::string& filename,        // Adds a "file" to a drawer
-        const std::string& content);        // (like putting a document in a folder)
-std::string listFiles(const std::string& dirName); // Lists all "files" in a drawer (like an inventory list)
+    bool writeFile(const std::string& filename, const std::string& content);           // Adds a "file" to a drawer  // (like putting a document in a folder)
+    std::string listFiles(const std::string& dirName); 
+    bool deleteFile(const std::string& filename);
+// Lists all "files" in a drawer (like an inventory list)
 };
