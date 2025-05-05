@@ -58,11 +58,13 @@ std::string FileSystem::listFiles(const std::string& dirName) { // List all file
 }
 
 bool FileSystem::deleteFile(const std::string& filename) {
-    // Combine base directory + filename (e.g., "server_files/notes.txt")
-    std::string fullPath = baseDir + filename; // Full path to the file
-
-    // Check if the file exists and delete it (like removing a document from the drawer)
-    return fs::remove(fullPath); // Remove the file (like throwing away a document)
+    // build the full path
+    std::string fullPath = baseDir + filename;
+    try {
+        return fs::remove(fullPath);   // returns true if a file was removed
+    } catch (const std::filesystem::filesystem_error&) {
+        return false;
+    }
 }
 
 // int main() {

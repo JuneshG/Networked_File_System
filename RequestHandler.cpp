@@ -75,7 +75,6 @@ std::string RequestHandler::processRequest(const std::string& request) {
         iss >> filename;
         return fs.deleteFile(filename) ? "OK\n" : "ERR_DELETE_FILE\n";
     }
-
     
     return "ERR_UNKNOWN_CMD\n";
 }
