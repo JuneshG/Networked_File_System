@@ -105,6 +105,15 @@ Now you have a cloud-hosted file system. Multiple remote clients can connect sim
 
 3. Include a brief test or demo in your PR description.
 
+## 🤖 AI Learning Resources
+
+**NEW: AI Learning Path for Industrial Applications**
+- 📚 [**AI Learning Roadmap**](AI_LEARNING_ROADMAP.md) - Comprehensive course recommendations for JBS USA applications
+- 🛒 [**Course Purchase Guide**](COURSE_PURCHASE_GUIDE.md) - Step-by-step instructions for buying Coursera courses  
+- 🏭 [**JBS AI Project Ideas**](JBS_AI_PROJECT_IDEAS.md) - Practical AI implementation projects for food processing
+
+*Based on analysis of technical background: C++17, distributed systems, AWS cloud, networking expertise.*
+
 ## 📜 License
 MIT – free for personal and commercial use, just keep the notice.
 
